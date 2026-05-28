@@ -2,6 +2,17 @@
 // index.php – единая точка входа
 session_start();
 
+// Очистка флага модального окна (AJAX-запрос)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['clear_credentials_modal'])) {
+    unset($_SESSION['show_credentials_modal']);
+    unset($_SESSION['temp_login']);
+    unset($_SESSION['temp_password']);
+    exit;
+}
+
+
+
+
 // Подключение к БД
 function getDB() {
     static $pdo = null;
@@ -184,9 +195,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ':login' => $login,
                 ':pass_hash' => $pass_hash
             ]);
+
             $app_id = $pdo->lastInsertId();
-            setcookie('generated_login', $login, time() + 3600);
-            setcookie('generated_password', $plain_pass, time() + 3600);
+
+
+            $_SESSION['show_credentials_modal'] = true;
+            $_SESSION['temp_login'] = $login;
+            $_SESSION['temp_password'] = $plain_pass;
+
+
+           setcookie('generated_login', '', 1);
+setcookie('generated_password', '', 1);
             setcookie('save', '1', time() + 86400);
         }
 
@@ -299,19 +318,7 @@ if (!empty($_COOKIE['updated'])) {
     setcookie('updated', '', 1);
     $messages[] = '<div class="success-message">Данные успешно обновлены!</div>';
 }
-// Показ сгенерированных логина и пароля
-if (!empty($_COOKIE['generated_login']) && !empty($_COOKIE['generated_password'])) {
-    $gen_login = $_COOKIE['generated_login'];
-    $gen_pass = $_COOKIE['generated_password'];
-    setcookie('generated_login', '', 1);
-    setcookie('generated_password', '', 1);
-    $messages[] = '<div class="success-message credentials">
-        <strong>Заявка успешно отправлена!</strong><br>
-        Ваш логин: <strong>' . htmlspecialchars($gen_login) . '</strong><br>
-        Ваш пароль: <strong>' . htmlspecialchars($gen_pass) . '</strong><br>
-        <small>Сохраните их для входа в личный кабинет.</small>
-    </div>';
-}
+
 
 // Список интересов из БД (таблица interest)
 $pdo = getDB();

@@ -10,7 +10,7 @@ if (isset($_SESSION['application_id'])) {
     exit();
 }
 
-// --- Функция подключения к БД (такая же, как в index.php) ---
+
 function getDB() {
     static $pdo = null;
     if ($pdo === null) {
@@ -28,7 +28,7 @@ function getDB() {
     }
     return $pdo;
 }
-// --- Конец функции ---
+
 
 $errors = [];
 $login_input = '';

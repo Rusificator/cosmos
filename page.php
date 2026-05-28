@@ -142,12 +142,17 @@
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="login.php" class="nav-link">Вход</a></li>
-                        <li>
-                            <button class="contact-btn" id="openFeedbackBtn">
-                                Связь с нами
-                            </button>
-                        </li>
+                         <?php if (isset($_SESSION['application_id'])): ?>
+                            <li>
+                                <a href="profile.php" class="contact-btn"> Профиль</a>
+                            </li>
+                            
+                        <?php else: ?>
+                            <li>
+                                <a href="login.php" class="contact-btn"> Войти</a>
+                            </li>
+                        <?php endif; ?>
+                        
                     </ul>
                 </nav>
                 
@@ -619,7 +624,7 @@
 
         <div class="footer-content">
              <div class="anketa-section" id="anketa-section">
-                <h2>⚡ Заявка на космическую программу</h2>
+                <h2>⚡ Гонка интересов</h2>
                 <?php if ($is_logged_in): ?>
                     <div class="logged-in-badge">
                         ✅ Вы авторизованы (логин: <?= htmlspecialchars($_SESSION['user_login'] ?? '') ?>)
@@ -748,5 +753,66 @@
     <script src="js/footerForm.js"></script>
     <script src="js/weight-calculator.js"></script>
    <script src="js/solar-model.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <!-- Модальное окно для логина/пароля -->
+<div id="credentialsModal" class="modal-overlay" style="display: none;">
+    <div class="modal-container modal-credentials">
+        <div class="modal-header">
+            <h3>🎉 Регистрация успешна!</h3>
+        </div>
+        <div class="modal-body">
+            <p>Ваши данные для входа (сохраните их!):</p>
+            <div class="credentials-box">
+                <strong>Логин:</strong> <span id="modalLogin"></span><br>
+                <strong>Пароль:</strong> <span id="modalPassword"></span>
+            </div>
+            <p>Вы будете автоматически авторизованы после закрытия окна.</p>
+            <button id="closeCredentialsModal" class="btn-confirm">Я сохранил(а) логин и пароль</button>
+        </div>
+    </div>
+</div>
+<?php if (isset($_SESSION['show_credentials_modal']) && $_SESSION['show_credentials_modal']): ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('credentialsModal');
+        const loginSpan = document.getElementById('modalLogin');
+        const passwordSpan = document.getElementById('modalPassword');
+        
+        loginSpan.textContent = '<?= htmlspecialchars($_SESSION['temp_login']) ?>';
+        passwordSpan.textContent = '<?= htmlspecialchars($_SESSION['temp_password']) ?>';
+        
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // блокируем скролл
+        
+        const closeBtn = document.getElementById('closeCredentialsModal');
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+            // Отправляем AJAX-запрос для очистки сессии
+            fetch(window.location.href, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'clear_credentials_modal=1'
+            });
+        });
+    });
+</script>
+<?php endif; ?>
 </body>
 </html>

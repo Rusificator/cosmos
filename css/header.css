@@ -483,3 +483,45 @@
         padding: 1.5rem;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+a.contact-btn {
+    display: inline-block;
+    text-decoration: none;
+    background: linear-gradient(45deg, #0066ff, #00ccff);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+}
+
+
+a.contact-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 102, 255, 0.4);
+    background: linear-gradient(45deg, #0052d4, #00a8e8);
+    text-decoration: none;
+}
+
+
+a.contact-btn:link,
+a.contact-btn:visited,
+a.contact-btn:focus,
+a.contact-btn:active {
+    text-decoration: none;
+}
