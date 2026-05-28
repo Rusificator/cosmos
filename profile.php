@@ -299,7 +299,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <li><a href="index.php#solar-model" class="nav-link">3D Модель</a></li>
                         <?php if (isset($_SESSION['application_id'])): ?>
                             <li><a href="profile.php" class="nav-link active">👤 Мой профиль</a></li>
-                            <li><a href="?logout=1" class="nav-link">🚪 Выйти</a></li>
                         <?php else: ?>
                             <li><a href="login.php" class="nav-link">🔑 Войти</a></li>
                         <?php endif; ?>

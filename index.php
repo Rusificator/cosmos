@@ -2,7 +2,7 @@
 // index.php – единая точка входа
 session_start();
 
-// Очистка флага модального окна (AJAX-запрос)
+// Очистка флага модального окна после закрытия
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['clear_credentials_modal'])) {
     unset($_SESSION['show_credentials_modal']);
     unset($_SESSION['temp_login']);
@@ -199,14 +199,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $app_id = $pdo->lastInsertId();
 
 
-            $_SESSION['show_credentials_modal'] = true;
+           $_SESSION['show_credentials_modal'] = true;
             $_SESSION['temp_login'] = $login;
             $_SESSION['temp_password'] = $plain_pass;
 
-
-           setcookie('generated_login', '', 1);
-setcookie('generated_password', '', 1);
             setcookie('save', '1', time() + 86400);
+            
+            setcookie('generated_login', '', 1);
+            setcookie('generated_password', '', 1);
         }
 
         // Сохраняем интересы (таблица interest)

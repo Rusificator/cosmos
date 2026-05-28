@@ -104,7 +104,10 @@
     </style>
 </head>
 <body>
-    
+    <script>
+    // Принудительная прокрутка в начало страницы
+    window.scrollTo(0, 0);
+</script>
     <header class="header">
         <div class="container">
             <div class="header-content">
@@ -770,48 +773,55 @@
 
 
 
-   <!-- Модальное окно для логина/пароля -->
-<div id="credentialsModal" class="modal-overlay" style="display: none;">
-    <div class="modal-container modal-credentials">
-        <div class="modal-header">
-            <h3>🎉 Регистрация успешна!</h3>
-        </div>
-        <div class="modal-body">
-            <p>Ваши данные для входа (сохраните их!):</p>
-            <div class="credentials-box">
-                <strong>Логин:</strong> <span id="modalLogin"></span><br>
-                <strong>Пароль:</strong> <span id="modalPassword"></span>
-            </div>
-            <p>Вы будете автоматически авторизованы после закрытия окна.</p>
-            <button id="closeCredentialsModal" class="btn-confirm">Я сохранил(а) логин и пароль</button>
-        </div>
-    </div>
-</div>
-<?php if (isset($_SESSION['show_credentials_modal']) && $_SESSION['show_credentials_modal']): ?>
+   <?php if (isset($_SESSION['show_credentials_modal']) && $_SESSION['show_credentials_modal']): ?>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const modal = document.getElementById('credentialsModal');
-        const loginSpan = document.getElementById('modalLogin');
-        const passwordSpan = document.getElementById('modalPassword');
+    (function() {
+        // Создаём затемнённый фон
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(0,0,0,0.9)';
+        overlay.style.backdropFilter = 'blur(5px)';
+        overlay.style.zIndex = '10000';
+        overlay.style.display = 'flex';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
         
-        loginSpan.textContent = '<?= htmlspecialchars($_SESSION['temp_login']) ?>';
-        passwordSpan.textContent = '<?= htmlspecialchars($_SESSION['temp_password']) ?>';
+        // Содержимое окна
+        overlay.innerHTML = `
+            <div style="background: #1a1a2e; border-radius: 20px; padding: 2rem; max-width: 500px; width: 90%; text-align: center; border: 2px solid #42dcff; box-shadow: 0 0 30px rgba(66,220,255,0.5);">
+                <h3 style="color: #42dcff; margin-bottom: 1rem;">🎉 Регистрация успешна!</h3>
+                <p>Ваши данные для входа (сохраните их!):</p>
+                <div style="background: rgba(0,0,0,0.5); padding: 1rem; border-radius: 12px; margin: 1rem 0; font-family: monospace; font-size: 1.1rem;">
+                    <strong>Логин:</strong> <span id="modalLoginSpan"><?= htmlspecialchars($_SESSION['temp_login']) ?></span><br>
+                    <strong>Пароль:</strong> <span id="modalPasswordSpan"><?= htmlspecialchars($_SESSION['temp_password']) ?></span>
+                </div>
+                <p>Вы будете автоматически авторизованы после закрытия окна.</p>
+                <button id="closeCredModalBtn" style="background: linear-gradient(45deg,#0066ff,#00ccff); border: none; padding: 10px 25px; border-radius: 30px; color: white; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: 1rem;">Я сохранил(а) логин и пароль</button>
+            </div>
+        `;
         
-        modal.style.display = 'flex';
+        document.body.appendChild(overlay);
         document.body.style.overflow = 'hidden'; // блокируем скролл
         
-        const closeBtn = document.getElementById('closeCredentialsModal');
+        const closeBtn = overlay.querySelector('#closeCredModalBtn');
         closeBtn.addEventListener('click', function() {
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
+            overlay.remove();
+            document.body.style.overflow = ''; // восстанавливаем скролл
             // Отправляем AJAX-запрос для очистки сессии
             fetch(window.location.href, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: 'clear_credentials_modal=1'
-            });
+            }).catch(e => console.warn('Ошибка при очистке сессии:', e));
         });
-    });
+        
+        // Опционально: закрытие по клику на фон (закомментировано, чтобы только по кнопке)
+        // overlay.addEventListener('click', (e) => { if (e.target === overlay) closeBtn.click(); });
+    })();
 </script>
 <?php endif; ?>
 </body>
