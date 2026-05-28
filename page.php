@@ -776,7 +776,7 @@
    <?php if (isset($_SESSION['show_credentials_modal']) && $_SESSION['show_credentials_modal']): ?>
 <script>
     (function() {
-        // Создаём затемнённый фон
+        // Создаём фон
         const overlay = document.createElement('div');
         overlay.style.position = 'fixed';
         overlay.style.top = '0';
@@ -790,7 +790,7 @@
         overlay.style.alignItems = 'center';
         overlay.style.justifyContent = 'center';
         
-        // Содержимое окна
+        // Содержимое окна (текст изменён на «Вы уже авторизованы»)
         overlay.innerHTML = `
             <div style="background: #1a1a2e; border-radius: 20px; padding: 2rem; max-width: 500px; width: 90%; text-align: center; border: 2px solid #42dcff; box-shadow: 0 0 30px rgba(66,220,255,0.5);">
                 <h3 style="color: #42dcff; margin-bottom: 1rem;">🎉 Регистрация успешна!</h3>
@@ -799,7 +799,7 @@
                     <strong>Логин:</strong> <span id="modalLoginSpan"><?= htmlspecialchars($_SESSION['temp_login']) ?></span><br>
                     <strong>Пароль:</strong> <span id="modalPasswordSpan"><?= htmlspecialchars($_SESSION['temp_password']) ?></span>
                 </div>
-                <p>Вы будете автоматически авторизованы после закрытия окна.</p>
+                <p>✅ Вы уже авторизованы на сайте.<br>Можете закрыть это окно и продолжить.</p>
                 <button id="closeCredModalBtn" style="background: linear-gradient(45deg,#0066ff,#00ccff); border: none; padding: 10px 25px; border-radius: 30px; color: white; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: 1rem;">Я сохранил(а) логин и пароль</button>
             </div>
         `;
@@ -809,18 +809,15 @@
         
         const closeBtn = overlay.querySelector('#closeCredModalBtn');
         closeBtn.addEventListener('click', function() {
-            overlay.remove();
-            document.body.style.overflow = ''; // восстанавливаем скролл
-            // Отправляем AJAX-запрос для очистки сессии
+            overlay.remove();                     // убираем окно
+            document.body.style.overflow = '';   // восстанавливаем скролл
+            // Отправляем AJAX-запрос для очистки сессионных флагов
             fetch(window.location.href, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: 'clear_credentials_modal=1'
             }).catch(e => console.warn('Ошибка при очистке сессии:', e));
         });
-        
-        // Опционально: закрытие по клику на фон (закомментировано, чтобы только по кнопке)
-        // overlay.addEventListener('click', (e) => { if (e.target === overlay) closeBtn.click(); });
     })();
 </script>
 <?php endif; ?>

@@ -202,6 +202,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
            $_SESSION['show_credentials_modal'] = true;
             $_SESSION['temp_login'] = $login;
             $_SESSION['temp_password'] = $plain_pass;
+            $_SESSION['application_id'] = $app_id;
+            $_SESSION['user_login'] = $login;
 
             setcookie('save', '1', time() + 86400);
             
