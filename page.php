@@ -116,8 +116,8 @@
                 <nav class="nav">
                     <ul class="nav-list">
                         <li><a href="#" class="nav-link active">Главная</a></li>
-                       <li><a href="planets.html" class="nav-link">Планеты</a></li>
-                        <li><a href="missions.html" class="nav-link">Миссии</a></li>
+                       <li><a href="planets.php" class="nav-link">Планеты</a></li>
+                        <li><a href="missions.php" class="nav-link">Миссии</a></li>
                         <li><a href="#gallery" class="nav-link">Галерея</a></li>
                         <li><a href="#anketa" class="nav-link">Опрос</a></li>
                         
@@ -433,7 +433,7 @@
                         <span class="control-icon">🌍</span>
                         <span>Впечатляющие изображения</span>
                     </div>
-                    <button class="view-gallery-btn" id="viewGalleryBtn" onclick="window.location.href='gallery.html'">
+                    <button class="view-gallery-btn" id="viewGalleryBtn" onclick="window.location.href='gallery.php'">
                         <span class="btn-icon">📷</span>
                         Смотреть всю галерею
                     </button>
@@ -608,8 +608,8 @@
                 <h4>Разделы</h4>
                 <ul>
                     <li><a href="#">Главная</a></li>
-                    <li><a href="planets.html">Планеты</a></li>
-                    <li><a href="missions.html">Космические миссии</a></li>
+                    <li><a href="planets.php">Планеты</a></li>
+                    <li><a href="missions.php">Космические миссии</a></li>
                     <li><a href="#gallery">Галерея</a></li>
                     <li><a href="admin.php">Админ</a></li>
                 </ul>
