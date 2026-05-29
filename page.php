@@ -625,7 +625,7 @@
 
         <div class="footer-content" >
              <div class="anketa-section" >
-                <h2>⚡ Гонка интересов</h2>
+                <h2>⚡ Анкета</h2>
                 <?php if ($is_logged_in): ?>
                     <div class="logged-in-badge">
                         ✅ Вы авторизованы (логин: <?= htmlspecialchars($_SESSION['user_login'] ?? '') ?>)

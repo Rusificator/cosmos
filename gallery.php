@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Космическая галерея | Космический исследователь</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/gallery.css">
+</head>
+<body>
+   
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.php" class="logo">
+                    <span class="logo-icon">🌌</span>
+                    <span class="logo-text">Космический исследователь</span>
+                </a>
+                
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="index.php" class="nav-link">Главная</a></li>
+                        <li><a href="planets.php" class="nav-link">Планеты</a></li>
+                     <li><a href="missions.php" class="nav-link">Миссии</a></li>
+                        <li><a href="index.php#gallery" class="nav-link">Галерея</a></li>
+                       
+                        <li class="nav-item dropdown">
+                            <button class="nav-link dropdown-toggle">
+                                Разное
+                                <span class="dropdown-arrow">▼</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="index.php#calculator" class="dropdown-link">
+                                        <span class="dropdown-icon">⚖️</span>
+                                        Калькулятор веса на планетах
+                                    </a>
+                                </li>
+                               
+                                <li>
+                                    <a href="index.php#solar-model" class="dropdown-link">
+                                        <span class="dropdown-icon">🌐</span>
+                                        3D Модель Солнечной системы
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        </li>
+                         <?php if (isset($_SESSION['application_id'])): ?>
+                            <li>
+                                <a href="profile.php" class="contact-btn"> Профиль</a>
+                            </li>
+                            
+                        <?php else: ?>
+                            <li>
+                                <a href="login.php" class="contact-btn"> Войти</a>
+                            </li>
+                        <?php endif; ?>
+                    </ul>
+                </nav>
+                
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Открыть меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+   
+    <div class="video-background">
+        <video 
+            autoplay 
+            muted 
+            loop 
+            class="background-video"
+            playsinline
+        >
+            <source src="content/video/Solar-System.mp4" type="video/mp4">
+            Ваш браузер не поддерживает видео.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    
+    <main class="gallery-page">
+        <div class="container">
+           
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span class="title-icon">📷</span>
+                    Космическая галерея
+                </h1>
+                <p class="page-subtitle">
+                    Самые впечатляющие фотографии космоса, сделанные телескопами и космическими аппаратами
+                </p>
+                <div class="page-stats">
+                    <div class="stat">
+                        <span class="stat-number">8</span>
+                        <span class="stat-label">уникальных снимков</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">HD</span>
+                        <span class="stat-label">качество изображений</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-icon">🚀</span>
+                        <span class="stat-label">от NASA и ESA</span>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="gallery-grid" id="galleryGrid">
+                
+            </div>
+
+           
+            <div class="info-section">
+                <div class="info-card">
+                    <div class="info-icon">🛰️</div>
+                    <h3>Технологии съемки</h3>
+                    <p>Большинство снимков сделаны космическими телескопами Хаббл и Джеймс Уэбб, а также межпланетными станциями.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">🎨</div>
+                    <h3>Цветовая обработка</h3>
+                    <p>Многие космические изображения обрабатываются для выделения научно значимых деталей и повышения контрастности.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">🌌</div>
+                    <h3>Реальное время</h3>
+                    <p>Некоторые снимки показывают объекты такими, какими они были миллионы лет назад из-за огромных расстояний.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    
+    <div class="image-modal" id="imageModal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-container">
+            <button class="modal-close" id="modalClose" aria-label="Закрыть">
+                <span class="close-icon">×</span>
+            </button>
+            
+            <div class="modal-content">
+                <div class="modal-image-container">
+                    <img id="modalImage" class="modal-image" src="" alt="">
+                    <div class="image-loader" id="imageLoader">
+                        <div class="loader-spinner"></div>
+                        <p>Загрузка изображения...</p>
+                    </div>
+                </div>
+                
+                <div class="modal-info">
+                    <h3 id="modalTitle" class="modal-title"></h3>
+                    <p id="modalDescription" class="modal-description"></p>
+                    <div class="image-meta">
+                        <div class="meta-item">
+                            <span class="meta-icon">🆔</span>
+                            <span class="meta-text">ID: <span id="modalId"></span></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">📁</span>
+                            <span class="meta-text" id="modalCategory"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-navigation">
+                <button class="nav-btn prev-btn" id="prevBtn" aria-label="Предыдущее изображение">
+                    <span class="nav-icon">←</span>
+                    <span class="nav-text">Назад</span>
+                </button>
+                <div class="image-counter">
+                    <span id="currentImage">1</span> из <span id="totalImages">8</span>
+                </div>
+                <button class="nav-btn next-btn" id="nextBtn" aria-label="Следующее изображение">
+                    <span class="nav-text">Вперёд</span>
+                    <span class="nav-icon">→</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Космический исследователь</h3>
+                    <p>Исследуйте тайны Вселенной вместе с нами</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Разделы</h4>
+                    <ul>
+                        <li><a href="index.php">Главная</a></li>
+                        <li><a href="planets.php">Планеты</a></li>
+                        <li><a href="missions.php">Космические миссии</a></li>
+                        <li><a href="index.php#gallery">Галерея</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Инструменты</h4>
+                    <ul>
+                        <li><a href="index.php#calculator">Калькулятор веса</a></li>
+                        <li><a href="index.php#solar-model">3D Модель</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Космический исследователь.</p>
+                
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="js/script.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/gallery.js"></script>
+</body>
+</html>

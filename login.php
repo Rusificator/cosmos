@@ -149,7 +149,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit">Войти</button>
     </form>
     <div class="back-link">
-        <a href="index.php">← Вернуться к форме</a>
+        <p>Ещё не получали логин и пароль?</p>
+        <a href="index.php#anketa">← Вернуться к форме</a>
     </div>
 </div>
 </body>

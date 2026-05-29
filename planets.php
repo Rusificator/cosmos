@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Планеты Солнечной системы | Космический исследователь</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/planets.css">
+</head>
+<body>
+    
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.php" class="logo">
+                    <span class="logo-icon">🌌</span>
+                    <span class="logo-text">Космический исследователь</span>
+                </a>
+                
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="index.php" class="nav-link">Главная</a></li>
+                        <li><a href="planets.php" class="nav-link active">Планеты</a></li>
+                       <li><a href="missions.php" class="nav-link">Миссии</a></li>
+                        <li><a href="index.php#gallery" class="nav-link">Галерея</a></li>
+                        
+                       
+                        <li class="nav-item dropdown">
+                            <button class="nav-link dropdown-toggle">
+                                Разное
+                                <span class="dropdown-arrow">▼</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="index.php#calculator" class="dropdown-link">
+                                        <span class="dropdown-icon">⚖️</span>
+                                        Калькулятор веса на планетах
+                                    </a>
+                                </li>
+                               
+                                <li>
+                                    <a href="index.php#solar-model" class="dropdown-link">
+                                        <span class="dropdown-icon">🌐</span>
+                                        3D Модель Солнечной системы
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        </li>
+                         <?php if (isset($_SESSION['application_id'])): ?>
+                            <li>
+                                <a href="profile.php" class="contact-btn"> Профиль</a>
+                            </li>
+                            
+                        <?php else: ?>
+                            <li>
+                                <a href="login.php" class="contact-btn"> Войти</a>
+                            </li>
+                        <?php endif; ?>
+                    </ul>
+                </nav>
+                
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Открыть меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+   
+    <div class="video-background">
+        <video 
+            autoplay 
+            muted 
+            loop 
+            class="background-video"
+            playsinline
+        >
+            <source src="content/video/Solar-System.mp4" type="video/mp4">
+            Ваш браузер не поддерживает видео.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    
+    <main class="planets-page">
+        <div class="container">
+            
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span class="title-icon">🪐</span>
+                    Планеты Солнечной системы
+                </h1>
+                <p class="page-subtitle">
+                    Исследуйте удивительные миры, вращающиеся вокруг нашего Солнца
+                </p>
+                <div class="page-stats">
+                    <div class="stat">
+                        <span class="stat-number">8</span>
+                        <span class="stat-label">планет</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">5</span>
+                        <span class="stat-label">карликовых планет</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">200+</span>
+                        <span class="stat-label">спутников</span>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="planets-grid" id="planetsGrid">
+                
+            </div>
+
+            
+            <div class="category-section">
+                <h2 class="category-title">
+                    <span class="category-icon">⭐</span>
+                    Карликовые планеты
+                </h2>
+                <p class="category-description">
+                    Меньшие небесные тела, которые не очистили свою орбиту от других объектов
+                </p>
+                
+                <div class="dwarf-planets-grid">
+                    
+                </div>
+            </div>
+
+            
+            <div class="info-section">
+                <div class="info-card">
+                    <div class="info-icon">🌞</div>
+                    <h3>Солнечная система</h3>
+                    <p>Наша планетная система состоит из Солнца и гравитационно связанных с ним небесных тел: 8 планет, их спутников, карликовых планет и малых тел.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">🔭</div>
+                    <h3>Классификация планет</h3>
+                    <p>Планеты делятся на две группы: земной группы (каменистые) и газовые гиганты. Также выделяют карликовые планеты и транснептуновые объекты.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">🚀</div>
+                    <h3>Исследование космоса</h3>
+                    <p>С 1957 года человечество активно исследует космос. Многие планеты были изучены с помощью космических аппаратов и телескопов.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Космический исследователь</h3>
+                    <p>Исследуйте тайны Вселенной вместе с нами</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Разделы</h4>
+                    <ul>
+                        <li><a href="index.php">Главная</a></li>
+                        <li><a href="planets.php">Планеты</a></li>
+                        <li><a href="missions.php">Космические миссии</a></li>
+                        <li><a href="index.php#gallery">Галерея</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Инструменты</h4>
+                    <ul>
+                        <li><a href="index.php#calculator">Калькулятор веса</a></li>
+                        <li><a href="index.php#solar-model">3D Модель</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Космический исследователь.</p>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="js/script.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/feedbackForm.js"></script>
+    <script src="js/planets.js"></script>
+</body>
+</html>
