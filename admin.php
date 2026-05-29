@@ -420,6 +420,10 @@ $all_interests = $pdo->query("SELECT name FROM interest ORDER BY name")->fetchAl
             .actions a { padding: 4px 8px; font-size: 0.7rem; }
             .form-grid { grid-template-columns: 1fr; }
         }
+        .admin-container td,
+        .admin-container th {
+            color: #ffffff;
+        }
     </style>
 </head>
 <body>
