@@ -78,7 +78,7 @@
         }
         .anketa-section .checkbox {
             display: flex;
-            align-items: center;
+            align-items: left;
             gap: 10px;
         }
         .anketa-section button {
@@ -104,10 +104,7 @@
     </style>
 </head>
 <body>
-    <script>
-    // Принудительная прокрутка в начало страницы
-    window.scrollTo(0, 0);
-</script>
+   
     <header class="header">
         <div class="container">
             <div class="header-content">
@@ -122,7 +119,7 @@
                        <li><a href="planets.html" class="nav-link">Планеты</a></li>
                         <li><a href="missions.html" class="nav-link">Миссии</a></li>
                         <li><a href="#gallery" class="nav-link">Галерея</a></li>
-                        
+                        <li><a href="#anketa" class="nav-link">Опрос</a></li>
                         
                         <li class="nav-item dropdown">
                             <button class="nav-link dropdown-toggle">
@@ -599,7 +596,7 @@
     </div>
 
    
-<footer class="footer">
+<footer class="footer" id="anketa">
     <div class="container">
         
         <div class="footer-content">
@@ -614,6 +611,7 @@
                     <li><a href="planets.html">Планеты</a></li>
                     <li><a href="missions.html">Космические миссии</a></li>
                     <li><a href="#gallery">Галерея</a></li>
+                    <li><a href="admin.php">Админ</a></li>
                 </ul>
             </div>
 
@@ -625,8 +623,8 @@
 
 
 
-        <div class="footer-content">
-             <div class="anketa-section" id="anketa-section">
+        <div class="footer-content" >
+             <div class="anketa-section" >
                 <h2>⚡ Гонка интересов</h2>
                 <?php if ($is_logged_in): ?>
                     <div class="logged-in-badge">
@@ -645,7 +643,7 @@
 
                 <form method="post" action="index.php">
                     <div class="form-group">
-                        <label for="full_name">ФИО *</label>
+                        <label for="full_name" style="text-align: left">ФИО *</label>
                         <input type="text" id="full_name" name="full_name" value="<?= htmlspecialchars($values['full_name'] ?? '') ?>"
                             <?= !empty($errors['full_name']) ? 'class="error"' : '' ?>>
                         <?php if (!empty($errors['full_name'])): ?>
@@ -654,7 +652,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="phone">Телефон *</label>
+                        <label for="phone" style="text-align: left">Телефон *</label>
                         <input type="tel" id="phone" name="phone" value="<?= htmlspecialchars($values['phone'] ?? '') ?>"
                             <?= !empty($errors['phone']) ? 'class="error"' : '' ?>>
                         <?php if (!empty($errors['phone'])): ?>
@@ -663,7 +661,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="email">E-mail *</label>
+                        <label for="email" style="text-align: left">E-mail *</label>
                         <input type="email" id="email" name="email" value="<?= htmlspecialchars($values['email'] ?? '') ?>"
                             <?= !empty($errors['email']) ? 'class="error"' : '' ?>>
                         <?php if (!empty($errors['email'])): ?>
@@ -672,7 +670,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="birth_date">Дата рождения *</label>
+                        <label for="birth_date" style="text-align: left">Дата рождения *</label>
                         <input type="date" id="birth_date" name="birth_date" value="<?= htmlspecialchars($values['birth_date'] ?? '') ?>"
                             <?= !empty($errors['birth_date']) ? 'class="error"' : '' ?>>
                         <?php if (!empty($errors['birth_date'])): ?>
@@ -681,7 +679,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Пол *</label>
+                        <label style="text-align: left">Пол *</label>
                         <div class="radio-group">
                             <label><input type="radio" name="gender" value="male" <?= ($values['gender'] ?? '') === 'male' ? 'checked' : '' ?>> Мужской</label>
                             <label><input type="radio" name="gender" value="female" <?= ($values['gender'] ?? '') === 'female' ? 'checked' : '' ?>> Женский</label>
@@ -692,7 +690,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="interests">Космические интересы (выберите несколько) *</label>
+                        <label for="interests" style="text-align: left">Космические интересы (выберите несколько) *</label>
                         <select id="interests" name="interests[]" multiple size="6"
                             <?= !empty($errors['interests']) ? 'class="error"' : '' ?>>
                             <?php foreach ($interests_from_db as $interest): ?>
@@ -708,7 +706,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="biography">Расскажите о себе (почему космос?)</label>
+                        <label for="biography" style="text-align: left">Расскажите о себе (почему космос?)</label>
                         <textarea id="biography" name="biography" rows="5"
                             <?= !empty($errors['biography']) ? 'class="error"' : '' ?>><?= htmlspecialchars($values['biography'] ?? '') ?></textarea>
                         <?php if (!empty($errors['biography'])): ?>
@@ -717,15 +715,18 @@
                     </div>
 
                     <div class="form-group checkbox">
-                        <label>
-                            <input type="checkbox" name="contract_accepted" value="1"
+                        <label style="text-align: left">
+                            Я даю согласие на обработку персональных данных *
+                        <input type="checkbox" name="contract_accepted" value="1"
                                 <?= !empty($values['contract_accepted']) ? 'checked' : '' ?>
                                 <?= !empty($errors['contract_accepted']) ? 'class="error"' : '' ?>>
-                            Я даю согласие на обработку персональных данных *
-                        </label>
+                            
+                        
                         <?php if (!empty($errors['contract_accepted'])): ?>
                             <span class="field-error">Необходимо подтвердить согласие</span>
                         <?php endif; ?>
+                        </label>
+                            
                     </div>
 
                     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
@@ -742,7 +743,7 @@
 
 
         <div class="footer-bottom">
-                <p>&copy; 2026 Космический исследователь. Все права защищены.</p>
+                <p>&copy; 2026 Космический исследователь.</p>
         </div>
 
         
