@@ -398,7 +398,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 
-    <!-- Футер (упрощённая версия) -->
+    
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -417,7 +417,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Космический исследователь. Все права защищены.</p>
+                <p>&copy; 2026 Космический исследователь.</p>
             </div>
         </div>
     </footer>
